@@ -7,7 +7,8 @@
     "dev": "wrangler dev",
     "start": "wrangler dev",
     "test": "vitest",
-    "cf-typegen": "wrangler types"
+    "cf-typegen": "wrangler types",
+    "format": "prettier -w ."
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.1.0",
@@ -15,5 +16,9 @@
     "typescript": "^5.0.4",
     "vitest": "1.3.0",
     "wrangler": "^3.0.0"
+  },
+  "dependencies": {
+    "itty-router": "^5.0.17",
+    "prettier": "^3.3.1"
   }
 }
