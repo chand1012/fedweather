@@ -1,5 +1,5 @@
 // get the number of seconds until 10 after the next hour
-export const getSecondsUntilNextHour = () => {
+export const getForecastTTL = () => {
   const now = new Date();
   const nextHour = new Date(now);
   nextHour.setHours(now.getHours() + 1);

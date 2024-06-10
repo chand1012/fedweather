@@ -8,16 +8,16 @@ router.get('/', async (req: IRequest, env: Env) => {
   const { city, lat, lng } = req.query;
 
   if (lat && lng) {
-    const forecast = await getForecast([parseFloat(lng as string), parseFloat(lat as string)]);
+    const forecast = await getForecast([parseFloat(lng as string), parseFloat(lat as string)], env);
     return json(forecast);
   }
   if (!city) {
     return json({ error: 'Missing city query parameter' }, { status: 400 });
   }
 
-  const coords = await geocode(city as string);
+  const coords = await geocode(city as string, env);
 
-  const forecast = await getForecast(coords);
+  const forecast = await getForecast(coords, env);
 
   return json(forecast);
 });
