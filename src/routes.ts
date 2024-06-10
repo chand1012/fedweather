@@ -21,3 +21,5 @@ router.get('/', async (req: IRequest, env: Env) => {
 
   return json(forecast);
 });
+
+export default router;
