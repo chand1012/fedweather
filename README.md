@@ -144,6 +144,122 @@ Follow these instructions to setup and deploy the FedWeather API.
 }
 ```
 
+### Get Hourly Forecast
+
+- **Endpoint:** `/hourly`
+- **Method:** `GET`
+
+#### Query Parameters
+
+- `city` (string, optional if specifying latitude and longitude): The name of the city to get the weather forecast for.
+- `lat` (number, required if specifying longitude): Latitude coordinate for geolocation.
+- `lng` (number, required if specifying latitude): Longitude coordinate for geolocation.
+
+#### Example Request
+
+- By City:
+
+  ```
+  GET /hourly?city=San Francisco
+  ```
+
+- By Coordinates:
+
+  ```
+  GET /hourly?lat=37.7749&lng=-122.4194
+  ```
+
+#### Example Response
+
+```json
+{
+  "properties": {
+    "updated": "2024-06-11T09:42:40+00:00",
+    "units": "us",
+    "forecastGenerator": "HourlyForecastGenerator",
+    "generatedAt": "2024-06-11T13:05:21+00:00",
+    "updateTime": "2024-06-11T09:42:40+00:00",
+    "validTimes": "2024-06-11T03:00:00+00:00/P7DT22H",
+    "elevation": { "unitCode": "wmoUnit:m", "value": 334.9752 },
+    "periods": [
+      {
+        "number": 1,
+        "name": "",
+        "startTime": "2024-06-11T09:00:00-04:00",
+        "endTime": "2024-06-11T10:00:00-04:00",
+        "isDaytime": true,
+        "temperature": 54,
+        "temperatureUnit": "F",
+        "temperatureTrend": null,
+        "probabilityOfPrecipitation": { "unitCode": "wmoUnit:percent", "value": 0 },
+        "dewpoint": { "unitCode": "wmoUnit:degC", "value": 8.88888888888889 },
+        "relativeHumidity": { "unitCode": "wmoUnit:percent", "value": 77 },
+        "windSpeed": "3 mph",
+        "windDirection": "NW",
+        "icon": "https://api.weather.gov/icons/land/day/few,0?size=small",
+        "shortForecast": "Sunny",
+        "detailedForecast": ""
+      },
+      {
+        "number": 2,
+        "name": "",
+        "startTime": "2024-06-11T10:00:00-04:00",
+        "endTime": "2024-06-11T11:00:00-04:00",
+        "isDaytime": true,
+        "temperature": 58,
+        "temperatureUnit": "F",
+        "temperatureTrend": null,
+        "probabilityOfPrecipitation": { "unitCode": "wmoUnit:percent", "value": 0 },
+        "dewpoint": { "unitCode": "wmoUnit:degC", "value": 8.88888888888889 },
+        "relativeHumidity": { "unitCode": "wmoUnit:percent", "value": 68 },
+        "windSpeed": "5 mph",
+        "windDirection": "NW",
+        "icon": "https://api.weather.gov/icons/land/day/sct,0?size=small",
+        "shortForecast": "Mostly Sunny",
+        "detailedForecast": ""
+      },
+    ],
+  }
+}
+```
+
+### Error Response
+
+- **Status:** `400 Bad Request`
+- **Example Response:**
+
+```json
+{
+  "error": "Missing city query parameter"
+}
+```
+
+### Geocode City
+
+- **Endpoint:** `/geocode`
+- **Method:** `GET`
+
+#### Query Parameters
+
+- `city` (string, required): The name of the city to geocode.
+
+#### Example Request
+
+```
+GET /geocode?city=San Francisco
+```
+
+#### Example Response
+
+```json
+{
+    "coords": [
+        -74.0060152,
+        40.7127281
+    ]
+}
+```
+
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request.

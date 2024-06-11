@@ -36,3 +36,26 @@ export const getForecast = async (coords: [number, number], env: Env) => {
   });
   return data;
 }
+
+export const getHourlyForecast = async (coords: [number, number], env: Env) => {
+  const hourlyKey = coords.join(',') + "-hourly";
+  const hourly = await env.KV.get(hourlyKey);
+  if (hourly) {
+    return JSON.parse(hourly);
+  }
+
+  const key = coords.join(',') + "-hourly-url";
+  let forecastURL = await env.KV.get(key);
+  if (!forecastURL) {
+    const pointData = await getPoint(coords);
+    forecastURL = pointData.properties.forecastHourly;
+    await env.KV.put(key, forecastURL);
+  }
+
+  const resp = await fetch(forecastURL, { headers });
+  const data = await resp.json();
+  await env.KV.put(hourlyKey, JSON.stringify(data), {
+    expirationTtl: getForecastTTL(),
+  });
+  return data;
+}
